@@ -48,8 +48,7 @@
     display: inline-block;
     margin-bottom: 1.25rem;
     line-height: 0;
-    border-radius: 12px;
-    transition: transform 200ms ease, filter 200ms ease;
+    transition: transform 200ms ease;
   }
   .logo-link:hover { transform: translateY(-2px); }
   .logo-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
@@ -104,7 +103,6 @@
     grid-row: 3;
     margin-top: 1.5rem;
     justify-self: start;
-    align-self: center;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -130,6 +128,11 @@
   .copy-btn:active,
   .copy-btn.copied { color: #ffffff; border-color: #ffffff; opacity: 1; transform: translateX(0); }
   .copy-btn svg { width: 16px; height: 16px; }
+  @media (max-width: 600px) {
+    :root { --side-col: auto; }
+    body { padding: 1rem; }
+    main { column-gap: 0.4rem; }
+  }
   @media (prefers-reduced-motion: reduce) {
     .logo { animation: none; }
   }
