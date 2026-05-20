@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>xode</title>
-<meta name="description" content="xode — get in touch at git@xode.dev" />
+<meta name="description" content="xode" />
 <link rel="icon" type="image/png" href="assets/logo.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,7 +17,6 @@
     --muted: #8a8a96;
     --accent: #7c8cf0;
     --accent-deep: #5a6ed4;
-    --ctrl-h: 3rem;
     --side-col: 11rem;
   }
   * { box-sizing: border-box; }
@@ -34,7 +33,7 @@
   main {
     display: grid;
     grid-template-columns: var(--side-col) auto var(--side-col);
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto auto;
     column-gap: 0.5rem;
     align-items: center;
     justify-items: center;
@@ -72,59 +71,6 @@
   .bracket .pipe { color: #4a4a52; margin-right: 0.4em; }
   .bracket-left  { grid-column: 1; grid-row: 2; justify-self: end; white-space: nowrap; }
   .bracket-right { grid-column: 3; grid-row: 2; justify-self: start; }
-  .contact {
-    grid-column: 2;
-    grid-row: 3;
-    margin-top: 1.5rem;
-    height: var(--ctrl-h);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0 1.25rem;
-    background: var(--bg-soft);
-    border: 1px solid rgba(124,140,240,0.35);
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 160ms ease, background 160ms ease;
-  }
-  .contact:hover { border-color: var(--accent); background: #2c2c33; }
-  main.flash .contact,
-  main.flash .copy-btn { border-color: #ffffff; color: #ffffff; }
-  main.flash .contact .prompt,
-  main.flash .contact .mail-link { color: #ffffff; }
-  .contact .prompt { color: var(--accent); }
-  .contact .mail-link { color: var(--fg); text-decoration: none; }
-  .contact .mail-link:hover { color: var(--accent); }
-  .copy-btn {
-    grid-column: 3;
-    grid-row: 3;
-    margin-top: 1.5rem;
-    justify-self: start;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--ctrl-h);
-    height: var(--ctrl-h);
-    padding: 0;
-    background: var(--bg-soft);
-    border: 1px solid rgba(124,140,240,0.35);
-    border-radius: 8px;
-    color: var(--muted);
-    cursor: pointer;
-    opacity: 0;
-    transform: translateX(-4px);
-    transition: opacity 160ms ease, transform 160ms ease, color 160ms ease, border-color 160ms ease, background 160ms ease;
-  }
-  .contact:hover ~ .copy-btn,
-  .copy-btn:hover,
-  .copy-btn:focus-visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  .copy-btn:hover { color: var(--accent); background: #2c2c33; }
-  .copy-btn:active,
-  .copy-btn.copied { color: #ffffff; border-color: #ffffff; opacity: 1; transform: translateX(0); }
-  .copy-btn svg { width: 16px; height: 16px; }
   @media (max-width: 600px) {
     :root { --side-col: auto; }
     body { padding: 1rem; }
@@ -143,52 +89,6 @@
     <span class="bracket bracket-left"><span class="pipe">|</span>&lt;</span>
     <h1>xode</h1>
     <span class="bracket bracket-right">/&gt;</span>
-    <span class="contact">
-      <span class="prompt">$</span>
-      <a class="mail-link" href="mailto:git@xode.dev">git@xode.dev</a>
-    </span>
-    <button class="copy-btn" type="button" aria-label="Copy email address" data-copy="git@xode.dev">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="9" y="9" width="11" height="11" rx="2"></rect>
-        <path d="M5 15V5a2 2 0 0 1 2-2h10"></path>
-      </svg>
-    </button>
-    <script>
-      (function () {
-        var btn = document.querySelector('.copy-btn');
-        if (!btn) return;
-        var row = document.querySelector('main');
-        var origHTML = btn.innerHTML;
-        btn.addEventListener('click', async function () {
-          var text = btn.getAttribute('data-copy');
-          try {
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-              await navigator.clipboard.writeText(text);
-            } else {
-              var ta = document.createElement('textarea');
-              ta.value = text;
-              ta.setAttribute('readonly', '');
-              ta.style.position = 'absolute';
-              ta.style.left = '-9999px';
-              document.body.appendChild(ta);
-              ta.select();
-              document.execCommand('copy');
-              document.body.removeChild(ta);
-            }
-            btn.classList.add('copied');
-            if (row) row.classList.add('flash');
-            btn.setAttribute('aria-label', 'Copied');
-            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>';
-            setTimeout(function () {
-              btn.classList.remove('copied');
-              if (row) row.classList.remove('flash');
-              btn.setAttribute('aria-label', 'Copy email address');
-              btn.innerHTML = origHTML;
-            }, 1400);
-          } catch (e) {}
-        });
-      })();
-    </script>
   </main>
 </body>
 </html>
